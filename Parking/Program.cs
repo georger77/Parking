@@ -21,8 +21,9 @@ namespace Parking_Camp
 
             Menu.Show();
 
-
+            
             int choice = int.Parse(Console.ReadLine());
+
             for (; choice > 0 && choice < 8;)
             {
                 switch (choice)
@@ -138,7 +139,30 @@ namespace Parking_Camp
                             Console.WriteLine("This is the list of our parking");
                             Console.WriteLine(parking);
                             Console.WriteLine("Make your choice about cars id and then press enter");
-                            string idCar = Console.ReadLine();
+                            string idCar;
+                            try
+                            {
+                                idCar = Console.ReadLine();
+                            }
+                            catch (OutOfMemoryException ex)
+                            {
+                                Console.WriteLine(ex.Message);
+                                Console.WriteLine(ex.Source);
+                                Menu.Show();
+                                choice = int.Parse(Console.ReadLine());
+                                break;
+                            }
+                            catch (ArgumentOutOfRangeException ex)
+                            {
+
+                                Console.WriteLine(ex.Message);
+                                Console.WriteLine(ex.Source);
+                                Menu.Show();
+                                choice = int.Parse(Console.ReadLine());
+                                break;
+                            }
+
+
 
                             parking.RemoveCarById(idCar);
 
