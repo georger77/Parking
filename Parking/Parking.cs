@@ -70,32 +70,53 @@ namespace Parking_Camp
         ////    Remove car from the parking by Id Car
         public void RemoveCarById(string idCar)
         {
+            int count = 0;
             Car _car = new Car();
             foreach (var x in _cars)
             {
-                if (x.Id == idCar) _car = x;
+                if (x.Id == idCar) { _car = x;
+                    count++;
+                }
             }
-            int n = _cars.IndexOf(_car);
-            if (_cars[n].Balance >= 0)
-            { _cars.Remove(_car); }
+            if (count > 0)
+            {
+                int n = _cars.IndexOf(_car);
+                if (_cars[n].Balance >= 0)
+                { _cars.Remove(_car); }
+                else
+                {
+                    Console.WriteLine("Your account is not positive");
+                    Console.WriteLine($"You must pay not less {(-1) * _cars[n].Balance} $");
+                }
+            }
             else
             {
-                Console.WriteLine("Your account is not positive");
-                Console.WriteLine($"You must pay not less {(-1) * _cars[n].Balance} $");
+                Console.WriteLine("Uncorrect IdCar");
+
             }
+
         }
 
 
         ////    Increase cars balance  by Id Car
         public void IncreaseBalanceCarById(string idCar, double sum, bool y)
         {
+            int count = 0;
             Car _car = new Car();
             foreach (var x in _cars)
             {
-                if (x.Id == idCar) _car = x;
+                if (x.Id == idCar) { _car = x;
+                    count++;
+                }
             }
-            int n = _cars.IndexOf(_car);
-            _cars[n].IncreaseBalance(sum, y);
+            if (count > 0)
+            {
+                int n = _cars.IndexOf(_car);
+                _cars[n].IncreaseBalance(sum, y);
+            }
+            else { Console.WriteLine("Uncorrect IdCar");
+
+            }
         }
         ////    Show Balance of the parking
         public string ShowBalance()
